@@ -1,13 +1,17 @@
+#include <tuple>
+#include <iterator>
+
 template<typename For>
 // Requires Forward_iterator<For>()
-auto find_maximum_subarray (For begin, For end)
+std::tuple<For, For, typename std::iterator_traits<For>::value_type> find_maximum_subarray (For begin, For end)
 {
     typename std::iterator_traits<For>::value_type max_sum_subarr = *begin;
     typename std::iterator_traits<For>::value_type max_sum        = *begin;
 
     For subarr_begin = begin;
     For left = begin;
-    For right = ++begin;
+    ++begin;
+    For right = begin;
 
     for (; begin != end; ++begin)
     {
@@ -27,5 +31,5 @@ auto find_maximum_subarray (For begin, For end)
             max_sum = max_sum_subarr;
         }
     }
-    return make_tuple (left, right, max_sum);
+    return std::make_tuple (left, right, max_sum);
 }
